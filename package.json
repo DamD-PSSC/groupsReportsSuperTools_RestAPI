@@ -1,0 +1,23 @@
+{
+  "name": "groupsreportssupertools_restapi",
+  "version": "1.0.0",
+  "description": "Backend of \"Groups Reports Super Tools\" application. Based on Express RestAPI.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirarchi/groupsReportsSuperTools_RestAPI.git"
+  },
+  "author": "sirarchi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirarchi/groupsReportsSuperTools_RestAPI/issues"
+  },
+  "homepage": "https://github.com/sirarchi/groupsReportsSuperTools_RestAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
