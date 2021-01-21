@@ -4,7 +4,7 @@
   "description": "Backend of \"Groups Reports Super Tools\" application. Based on Express RestAPI.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,16 @@
   "homepage": "https://github.com/sirarchi/groupsReportsSuperTools_RestAPI#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
   }
 }
