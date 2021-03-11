@@ -4,6 +4,7 @@ const dotEnv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
 const groupsRoutes = require('./routes/groups');
+const groupRoutes = require('./routes/group');
 const isTokenSent = require('./middleware/isTokenSent');
 
 // Application preconfiguration.
@@ -20,11 +21,11 @@ app.use(cors());
 app.use(isTokenSent);
 
 // Routes.
-
 app.use('/groups', groupsRoutes);
+app.use('/group', groupRoutes);
 
 // Error handler
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
     console.log(error);
     const status = error.statusCode || 500;
     const { message, data } = error;
