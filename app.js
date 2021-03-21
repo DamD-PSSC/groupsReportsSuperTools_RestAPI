@@ -3,9 +3,11 @@ const bodyParser = require('body-parser');
 const dotEnv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
+const passport = require('passport');
+const passportAzureAD = require('passport-azure-ad');
 const groupsRoutes = require('./routes/groups');
 const groupRoutes = require('./routes/group');
-const isTokenSent = require('./middleware/isTokenSent');
+const auth = require('./config/auth.json');
 
 // Application preconfiguration.
 const app = express();
@@ -18,11 +20,38 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Bearer token check middleware
-app.use(isTokenSent);
+const { BearerStrategy } = passportAzureAD;
+
+const options = {
+    identityMetadata: `https://${auth.authority}/${auth.tenantID}/${auth.version}/${auth.discovery}`,
+    issuer: `https://${auth.authority}/${auth.tenantID}/${auth.version}`,
+    clientID: auth.clientID,
+    audience: auth.audience,
+    validateIssuer: auth.validateIssuer,
+    passReqToCallback: auth.passReqToCallback,
+    loggingLevel: auth.loggingLevel,
+    scope: auth.scope,
+};
+
+const bearerStrategy = new BearerStrategy(options, (token, done) => {
+    done(null, {}, token);
+});
+
+app.use(passport.initialize());
+
+passport.use(bearerStrategy);
 
 // Routes.
-app.use('/groups', groupsRoutes);
-app.use('/group', groupRoutes);
+app.use(
+    '/groups',
+    passport.authenticate('oauth-bearer', { session: false }),
+    groupsRoutes
+);
+app.use(
+    '/group',
+    passport.authenticate('oauth-bearer', { session: false }),
+    groupRoutes
+);
 
 // Error handler
 app.use((error, req, res) => {
